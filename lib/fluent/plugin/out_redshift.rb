@@ -220,7 +220,7 @@ class RedshiftOutput < BufferedOutput
     @fetch_columns_sql ||= if @redshift_schemaname
                              "select column_name from INFORMATION_SCHEMA.COLUMNS where table_schema = '#{@redshift_schemaname}' and table_name = '#{@redshift_tablename}' order by ordinal_position;"
                            else
-                             "select column_name from INFORMATION_SCHEMA.COLUMNS where table_name = '#{@redshift_tablename}' order by ordinal_position;"
+                             "select column_name from INFORMATION_SCHEMA.COLUMNS where table_name = '#{@redshift_tablename}' AND column_name <> 'id' order by ordinal_position;
                            end
   end
 
